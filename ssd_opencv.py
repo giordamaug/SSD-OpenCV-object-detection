@@ -5,6 +5,8 @@ import numpy as np
 import time
 
 # handle command line arguments
+# find tensorflow models at: 
+# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo
 ap = argparse.ArgumentParser()
 ap.add_argument('-i', '--image', required=True,
                 help = 'path to input image')
@@ -19,8 +21,6 @@ ap.add_argument('-c', '--confthresh', required=False, type=float, default=0.5,
 args = ap.parse_args()
 
 # read model
-# find tensorflow models at: 
-# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo
 if args.model=='SSDv2':
     pb = 'models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
     pbt = 'models/ssd_mobilenet_v2_coco_2018_03_29/ssd_mobilenet_v2_coco_2018_03_29.pbtxt'
@@ -69,19 +69,9 @@ COLORS = np.random.uniform(0, 255, size=(len(classNames), 3))
 
 start = time.time() 
 # read pre-trained model and config file
-#net = cv2.dnn.readNetFromTensorflow(pb,pbt)
+net = cv2.dnn.readNetFromTensorflow(pb,pbt)
 # create input blob 
-#blob = cv2.dnn.blobFromImage(frame, size=(300, 300), swapRB=True, crop=False)
-
-classNames = { 0: 'background',
-    1: 'aeroplane', 2: 'bicycle', 3: 'bird', 4: 'boat',
-    5: 'bottle', 6: 'bus', 7: 'car', 8: 'cat', 9: 'chair',
-    10: 'cow', 11: 'diningtable', 12: 'dog', 13: 'horse',
-    14: 'motorbike', 15: 'person', 16: 'pottedplant',
-    17: 'sheep', 18: 'sofa', 19: 'train', 20: 'tvmonitor' }
-frame_resized = cv2.resize(frame,(300,300)) # resize frame for prediction
-net = cv2.dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt", "MobileNetSSD_deploy.caffemodel")
-blob = cv2.dnn.blobFromImage(frame_resized, 0.007843, (300, 300), (127.5, 127.5, 127.5), False)
+blob = cv2.dnn.blobFromImage(frame, size=(300, 300), swapRB=True, crop=False)
 
 # set input blob for the network
 net.setInput(blob)
@@ -102,7 +92,6 @@ boxes = []
 # loop over all detected objects
 for detection in outs[0, 0, :, :]:        
     # get the score
-    print(detection)
     score = float(detection[2])
     # draw the bounding box
     if score > args.confthresh: 
