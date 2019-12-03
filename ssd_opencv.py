@@ -5,8 +5,6 @@ import numpy as np
 import time
 
 # handle command line arguments
-# find tensorflow models at: 
-# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo
 ap = argparse.ArgumentParser()
 ap.add_argument('-i', '--image', required=True,
                 help = 'path to input image')
@@ -21,6 +19,8 @@ ap.add_argument('-c', '--confthresh', required=False, type=float, default=0.5,
 args = ap.parse_args()
 
 # read model
+# find tensorflow models at: 
+# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo
 if args.model=='SSDv2':
     pb = 'models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
     pbt = 'models/ssd_mobilenet_v2_coco_2018_03_29/ssd_mobilenet_v2_coco_2018_03_29.pbtxt'
