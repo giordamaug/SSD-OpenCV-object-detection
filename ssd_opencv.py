@@ -6,13 +6,13 @@ import time
 
 # handle command line arguments
 ap = argparse.ArgumentParser()
-ap.add_argument('-i', '--image', required=True,
+ap.add_argument('-i', '--image', required=True, metavar='<path to image>',
                 help = 'path to input image')
-ap.add_argument('-m', '--model', required=False, nargs='?', const=1, type=str, default='SSDv2',
+ap.add_argument('-m', '--model', required=False, metavar='<SSD model name>', nargs='?', const=1, type=str, default='SSDv2',
                 help = 'pre-trained model - allowed values:  [SSDv1q, SSDv2q, SSDv2, SSDv3]')
 ap.add_argument('-O', '--nonmax', required=False, action='store_true', default=False,
-                help = 'flag to enble non-max suppression (disabled by default)')
-ap.add_argument('-c', '--confthresh', required=False, type=float, default=0.5,
+                help = 'flag to enable non-max suppression (disabled by default)')
+ap.add_argument('-c', '--confthresh', required=False, metavar='<confidence threshold>', type=float, default=0.5,
                 help = 'confidence threshold (default is 0.5)')
 args = ap.parse_args()
 args = ap.parse_args()
