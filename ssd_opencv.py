@@ -5,22 +5,21 @@ import numpy as np
 import time
 
 # handle command line arguments
-# find tensorflow models at: 
-# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo
 ap = argparse.ArgumentParser()
 ap.add_argument('-i', '--image', required=True,
                 help = 'path to input image')
 ap.add_argument('-m', '--model', required=False, nargs='?', const=1, type=str, default='SSDv2',
                 help = 'pre-trained model - allowed values:  [SSDv1q, SSDv2q, SSDv2, SSDv3]')
 ap.add_argument('-O', '--nonmax', required=False, action='store_true', default=False,
-                help = 'flag to enble non-max suppression (true)')
-ap.add_argument('-o', '--output', required=False,
-                help = 'path to text file containing class names')
+                help = 'flag to enble non-max suppression (disabled by default)')
 ap.add_argument('-c', '--confthresh', required=False, type=float, default=0.5,
-                help = 'confidence threshold')
+                help = 'confidence threshold (default is 0.5)')
+args = ap.parse_args()
 args = ap.parse_args()
 
 # read model
+# find tensorflow models at: 
+# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo
 if args.model=='SSDv2':
     pb = 'models/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb'
     pbt = 'models/ssd_mobilenet_v2_coco_2018_03_29/ssd_mobilenet_v2_coco_2018_03_29.pbtxt'
