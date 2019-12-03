@@ -9,7 +9,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('-i', '--image', required=True, metavar='<path to image>',
                 help = 'path to input image')
 ap.add_argument('-m', '--model', required=False, metavar='<SSD model name>', type=str, default='SSDv2',
-                help = 'pre-trained model - allowed values:  [SSDv1q, SSDv2q, SSDv2, SSDv3]')
+                help = 'pre-trained model - allowed values:  [SSDv1q, SSDv2q, SSDv2, SSDv3] (default is SSDv2)')
 ap.add_argument('-O', '--nonmax', required=False, action='store_true', default=False,
                 help = 'flag to enable non-max suppression (disabled by default)')
 ap.add_argument('-c', '--confthresh', required=False, metavar='<confidence threshold>', type=float, default=0.5,
